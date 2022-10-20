@@ -1,0 +1,33 @@
+[
+ {
+   "dataName": "DropPod",
+   "friendlyName": "DropPod",
+   "crew": 2000,
+   "mass_tons": 7000,
+   "grouping": 7,
+   "requiredProjectName": "Project_SpaceMarine",
+   "powerRequirement_MW": 0,
+   "laserPowerBonus_MW": 0,
+   "thrustMultiplier": 1,
+   "EVMultiplier": 1,
+   "requiresHydrogenPropellant": null,
+   "requiresNuclearDrive": null,
+   "requiresFusionDrive": null,
+   "weightedBuildMaterials": {
+      "water": 0.1,
+      "volatiles": 0.1,
+      "metals": 0.6,
+      "nobleMetals": 0.4,
+      "fissiles": 0.1,
+      "antimatter": 0.001,
+      "exotics": null
+   },
+   "specialModuleRules": [
+      "LandArmy",
+      "ImmunetoAerobrakingDamage",
+      ""
+   ],
+   "iconResource": "siiconpack/ICO_DropPod",
+   "modelResource": ""
+}
+]

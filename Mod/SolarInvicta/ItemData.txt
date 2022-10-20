@@ -1,0 +1,6 @@
+Save your item/level/mod data here.
+It does not need to be a text file. Any file type is supported (binary, images, etc...).
+You can save multiple files, Steam items are folders (not single files).
+
+Update - 26/09/2022 6:47:54 PM
+Update - 2022/10/8 1:03:40

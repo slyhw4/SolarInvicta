@@ -1,0 +1,40 @@
+ManifestFileVersion: 0
+CRC: 764955180
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: 28b7027cd56c5205f61fbb3cfaf17576
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: 12da798fbf3a6c0c342cc56cb1a6efdf
+HashAppended: 0
+ClassTypes:
+- Class: 28
+  Script: {instanceID: 0}
+- Class: 213
+  Script: {instanceID: 0}
+SerializeReferenceClassIdentifiers: []
+Assets:
+- Assets/BundledAssets/Antarctica.png
+- Assets/BundledAssets/Luna.png
+- Assets/BundledAssets/Luna_Conservative.png
+- Assets/BundledAssets/Mars.png
+- Assets/BundledAssets/Triton.png
+- Assets/BundledAssets/Titan.png
+- Assets/BundledAssets/Europa.png
+- Assets/BundledAssets/Io.png
+- Assets/BundledAssets/Oberon.png
+- Assets/BundledAssets/Callisto.png
+- Assets/BundledAssets/Mars_Progressive.png
+- Assets/BundledAssets/Ceres_Progressive.png
+- Assets/BundledAssets/Luna_Progressive.png
+- Assets/BundledAssets/Pluto.png
+- Assets/BundledAssets/Titania.png
+- Assets/BundledAssets/Mars_Conservative.png
+- Assets/BundledAssets/Mercury_Conservative.png
+- Assets/BundledAssets/Ganymede.png
+- Assets/BundledAssets/Mercury.png
+- Assets/BundledAssets/Ceres.png
+- Assets/BundledAssets/Mercury_Progressive.png
+- Assets/BundledAssets/Ceres_Conservative.png
+Dependencies: []
