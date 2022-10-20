@@ -1,0 +1,12 @@
+C:\Users\slyhw\Desktop\TIpatch\SolarInvicta\SolarInvicta\SolarInvicta\bin\Debug\SolarInvicta.dll
+C:\Users\slyhw\Desktop\TIpatch\SolarInvicta\SolarInvicta\SolarInvicta\bin\Debug\SolarInvicta.pdb
+C:\Users\slyhw\Desktop\TIpatch\SolarInvicta\SolarInvicta\SolarInvicta\obj\Debug\SolarInvicta.csproj.AssemblyReference.cache
+C:\Users\slyhw\Desktop\TIpatch\SolarInvicta\SolarInvicta\SolarInvicta\obj\Debug\SolarInvicta.csproj.CoreCompileInputs.cache
+C:\Users\slyhw\Desktop\TIpatch\SolarInvicta\SolarInvicta\SolarInvicta\obj\Debug\SolarInvicta.dll
+C:\Users\slyhw\Desktop\TIpatch\SolarInvicta\SolarInvicta\SolarInvicta\obj\Debug\SolarInvicta.pdb
+D:\TIEA\Terra Invicta\Mods\Enabled\SolarInvicta\SolarInvicta.dll
+D:\TIEA\Terra Invicta\Mods\Enabled\SolarInvicta\SolarInvicta.pdb
+D:\Steam\steamapps\common\Terra Invicta\Mods\Enabled\SolarInvicta\SolarInvicta.dll
+D:\Steam\steamapps\common\Terra Invicta\Mods\Enabled\SolarInvicta\SolarInvicta.pdb
+D:\TIEA\TIBP\Terra Invicta\Mods\Enabled\SolarInvicta\SolarInvicta.dll
+D:\TIEA\TIBP\Terra Invicta\Mods\Enabled\SolarInvicta\SolarInvicta.pdb
