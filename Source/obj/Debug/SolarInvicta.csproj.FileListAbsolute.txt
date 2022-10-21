@@ -10,3 +10,7 @@ D:\Steam\steamapps\common\Terra Invicta\Mods\Enabled\SolarInvicta\SolarInvicta.d
 D:\Steam\steamapps\common\Terra Invicta\Mods\Enabled\SolarInvicta\SolarInvicta.pdb
 D:\TIEA\TIBP\Terra Invicta\Mods\Enabled\SolarInvicta\SolarInvicta.dll
 D:\TIEA\TIBP\Terra Invicta\Mods\Enabled\SolarInvicta\SolarInvicta.pdb
+C:\Users\slyhw\Desktop\SolarInvicta\SolarInvicta\Source\obj\Debug\SolarInvicta.csproj.AssemblyReference.cache
+C:\Users\slyhw\Desktop\SolarInvicta\SolarInvicta\Source\obj\Debug\SolarInvicta.csproj.CoreCompileInputs.cache
+C:\Users\slyhw\Desktop\SolarInvicta\SolarInvicta\Source\obj\Debug\SolarInvicta.dll
+C:\Users\slyhw\Desktop\SolarInvicta\SolarInvicta\Source\obj\Debug\SolarInvicta.pdb

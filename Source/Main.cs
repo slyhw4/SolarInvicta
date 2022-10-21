@@ -419,6 +419,22 @@ namespace SolarInvicta
 				return false;
 			}
 		}
+		[HarmonyPatch(typeof(TINationState), "BestBoostLatitude", MethodType.Getter)]
+		private class TINationState_BestBoostLatitude_Patch
+		{
+			private static bool Prefix(TINationState __instance, ref float __result)
+			{
+				if (__instance.solarBody == "Earth")
+				{
+					__result = __instance.regions.MinBy((TIRegionState x) => Mathf.Abs(x.boostLatitude)).boostLatitude;
+				}
+				else 
+				{
+					__result = 0;
+				}
+				return false;
+			}
+		}
 	}
 
 	//Space Marine class
