@@ -420,7 +420,7 @@ namespace SolarInvicta
 			}
 		}
 
-		//CTD Fixed
+		//CTD Fixed For AI
 		[HarmonyPatch(typeof(TINationState), "BestBoostLatitude", MethodType.Getter)]
 		private class TINationState_BestBoostLatitude_Patch
 		{
@@ -435,6 +435,16 @@ namespace SolarInvicta
 					__result = 0;
 				}
 				return false;
+			}
+		}
+		//Pop Fixed For SpaceRegions
+		[HarmonyPatch(typeof(TIRegionState), "InitWithTemplate")]
+		private class TIRegionState_InitWithTemplate_Patch
+		{
+			private static void Postfix(TIRegionState __instance, TIDataTemplate ___template)
+			{
+				TIRegionTemplate tiregionTemplate = ___template as TIRegionTemplate;
+				__instance.populationInMillions = tiregionTemplate.population_Millions;			
 			}
 		}
 	}

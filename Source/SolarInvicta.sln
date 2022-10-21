@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.31613.86
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SolarInvicta", "SolarInvicta.csproj", "{76B57646-C2C6-4265-B6CA-19D9AC84BA75}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{76B57646-C2C6-4265-B6CA-19D9AC84BA75}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{76B57646-C2C6-4265-B6CA-19D9AC84BA75}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{76B57646-C2C6-4265-B6CA-19D9AC84BA75}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{76B57646-C2C6-4265-B6CA-19D9AC84BA75}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {3BE243B7-0C1E-486E-8482-B71A040D1471}
+	EndGlobalSection
+EndGlobal

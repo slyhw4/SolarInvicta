@@ -16,7 +16,7 @@
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
-    <OutputPath>D:\Steam\steamapps\common\Terra Invicta\Mods\Enabled\SolarInvicta\</OutputPath>
+    <OutputPath>D:\TIEA\Terra Invicta\Mods\Enabled\SolarInvicta\</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
