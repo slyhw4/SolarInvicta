@@ -419,6 +419,8 @@ namespace SolarInvicta
 				return false;
 			}
 		}
+
+		//CTD Fixed
 		[HarmonyPatch(typeof(TINationState), "BestBoostLatitude", MethodType.Getter)]
 		private class TINationState_BestBoostLatitude_Patch
 		{
