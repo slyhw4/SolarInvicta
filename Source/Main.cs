@@ -447,6 +447,18 @@ namespace SolarInvicta
 				__instance.populationInMillions = tiregionTemplate.population_Millions;			
 			}
 		}
+		//GDF fix for mission
+		[HarmonyPatch(typeof(TIMissionModifier_TargetNationGDP), "GetModifier")]
+		private class TIMissionModifier_TargetNationGDP_GetModifier_Patch
+		{
+			private static void Postfix(ref float __result)
+			{
+				if (float.IsNaN(__result) || float.IsInfinity(__result))
+				{
+					__result = 0;
+				}
+			}
+		}
 	}
 
 	//Space Marine class
