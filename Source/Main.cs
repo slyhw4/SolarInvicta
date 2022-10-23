@@ -30,73 +30,57 @@ namespace SolarInvicta
 
 		public static UnityModManager.ModEntry mod;
 
-		//Allow councilor to reach target when they are in the same spacebody, skip the original method
+		//Fixed CTD caused by targeting. Allow councilor to reach target when they are in the same spacebody, skip the original method
 		[HarmonyPatch(typeof(TIMissionCondition_TargetInRange), "CanTarget")]
 		private class TIMissionCondition_TargetInRange_CanTarget_Patch
 		{
 			private static bool Prefix(TIMissionCondition __instance, ref string __result, TICouncilorState councilor, TIGameState possibleTarget)
 			{
-				bool flag = councilor.ref_spaceBody == possibleTarget.ref_spaceBody && !possibleTarget.ref_spaceBody.isEarth;
-				if (flag)
+				if (councilor.ref_spaceBody == possibleTarget.ref_spaceBody)
 				{
-					__result = "_Pass";
-				}
-				bool flag2 = !(councilor.ref_spaceBody != possibleTarget.ref_spaceBody);
-				if (flag2)
-				{
-					bool isCouncilorState = possibleTarget.isCouncilorState;
-					if (isCouncilorState)
+					if (possibleTarget.isCouncilorState)
 					{
 						TIGameState tigameState = TIMissionPhaseState.CouncilorLastKnownLocation(possibleTarget.ref_councilor);
-						bool flag3 = (!(councilor.ref_hab != null) || !(councilor.ref_hab == tigameState.ref_hab)) && (!(councilor.ref_fleet != null) || !(councilor.ref_fleet == tigameState.ref_fleet)) && (!(councilor.ref_habSite != null) || !(councilor.ref_habSite == tigameState.ref_habSite));
-						if (flag3)
+						if ((!(councilor.ref_hab != null) || !(councilor.ref_hab == tigameState.ref_hab)) && (!(councilor.ref_fleet != null) || !(councilor.ref_fleet == tigameState.ref_fleet)) && (!(councilor.ref_habSite != null) || !(councilor.ref_habSite == tigameState.ref_habSite)))
 						{
-							bool flag4 = !councilor.OnEarth || !(tigameState.ref_spaceAsset == null);
-							if (flag4)
+							if (!councilor.OnEarth || !(tigameState.ref_spaceAsset == null))
 							{
 								__result = __instance.GetType().Name;
 							}
 							TISpaceBodyState ref_spaceBody = tigameState.ref_spaceBody;
-							bool flag5 = ref_spaceBody == null || !ref_spaceBody.isEarth;
-							if (flag5)
+							if (ref_spaceBody == null || !ref_spaceBody.isEarth)
 							{
 								__result = __instance.GetType().Name;
 							}
 						}
-						bool flag6 = councilor.ValidDestination(TIUtilities.ObjectToExactLocation(tigameState));
-						if (flag6)
+						if (councilor.ValidDestination(TIUtilities.ObjectToExactLocation(tigameState)))
 						{
 							__result = "_Pass";
 						}
 					}
 					else
 					{
-						bool flag7 = (!(councilor.ref_hab != null) || !(councilor.ref_hab == possibleTarget.ref_hab)) && (!(councilor.ref_fleet != null) || !(councilor.ref_fleet == possibleTarget.ref_fleet)) && (!(councilor.ref_habSite != null) || !(councilor.ref_habSite == possibleTarget.ref_habSite));
-						if (flag7)
+						if ((!(councilor.ref_hab != null) || !(councilor.ref_hab == possibleTarget.ref_hab)) && (!(councilor.ref_fleet != null) || !(councilor.ref_fleet == possibleTarget.ref_fleet)) && (!(councilor.ref_habSite != null) || !(councilor.ref_habSite == possibleTarget.ref_habSite)))
 						{
-							bool flag8 = !councilor.OnEarth || !(possibleTarget.ref_spaceAsset == null);
-							if (flag8)
+							if (!councilor.OnEarth || !(possibleTarget.ref_spaceAsset == null))
 							{
 								__result = __instance.GetType().Name;
 							}
 							TISpaceBodyState ref_spaceBody2 = possibleTarget.ref_spaceBody;
-							bool flag9 = ref_spaceBody2 == null || !ref_spaceBody2.isEarth;
-							if (flag9)
+							if (ref_spaceBody2 == null || !ref_spaceBody2.isEarth)
 							{
 								__result = __instance.GetType().Name;
 							}
-							bool flag10 = councilor.ref_spaceBody == ref_spaceBody2 && !ref_spaceBody2.isEarth;
-							if (flag10)
-							{
-								__result = "_Pass";
-							}
 						}
-						bool flag11 = councilor.ValidDestination(TIUtilities.ObjectToExactLocation(possibleTarget));
-						if (flag11)
+						if (councilor.ValidDestination(TIUtilities.ObjectToExactLocation(possibleTarget)))
 						{
 							__result = "_Pass";
 						}
 					}
+				}
+				else 
+				{
+					__result = __instance.GetType().Name;
 				}
 				return false;
 			}
@@ -447,7 +431,7 @@ namespace SolarInvicta
 				__instance.populationInMillions = tiregionTemplate.population_Millions;			
 			}
 		}
-		//GDF fix for mission
+		//GDP fix for mission
 		[HarmonyPatch(typeof(TIMissionModifier_TargetNationGDP), "GetModifier")]
 		private class TIMissionModifier_TargetNationGDP_GetModifier_Patch
 		{
