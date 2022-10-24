@@ -6,6 +6,7 @@ using PavonisInteractive.TerraInvicta;
 using UnityModManagerNet;
 using UnityEngine;
 using TMPro;
+using System.Collections.Generic;
 
 namespace SolarInvicta
 {
@@ -441,6 +442,25 @@ namespace SolarInvicta
 				{
 					__result = 0;
 				}
+			}
+		}
+		//Boost & Time Patch for SI
+		[HarmonyPatch(typeof(TISpaceObjectState), "GenericTransferTimeFromEarthsSurface_d")]
+		private class TISpaceObjectState_GenericTransferTimeFromEarthsSurface_d_Patch
+		{
+			private static bool Prefix(ref float __result,TIFactionState faction, TIGameState destination)
+			{
+				float num = TISpaceObjectState.GenericTransferTime_d(faction, GameStateManager.Earth(), destination);
+				if (GameStateManager.Luna().nations.Exists((TINationState nation)=>nation.ref_faction==faction&&nation.population>1f))
+					num = Mathf.Min(TISpaceObjectState.GenericTransferTime_d(faction, GameStateManager.Luna(), destination),num);
+				if (GameStateManager.Mars().nations.Exists((TINationState nation) => nation.ref_faction == faction && nation.population > 1f))
+					num = Mathf.Min(TISpaceObjectState.GenericTransferTime_d(faction, GameStateManager.Mars(), destination), num);
+				if (GameStateManager.Ceres().nations.Exists((TINationState nation) => nation.ref_faction == faction && nation.population > 1f))
+					num = Mathf.Min(TISpaceObjectState.GenericTransferTime_d(faction, GameStateManager.Ceres(), destination), num);
+				if (GameStateManager.Mercury().nations.Exists((TINationState nation) => nation.ref_faction == faction && nation.population > 1f))
+					num = Mathf.Min(TISpaceObjectState.GenericTransferTime_d(faction, GameStateManager.Mercury(), destination), num);
+				__result = num;
+				return false;
 			}
 		}
 	}
