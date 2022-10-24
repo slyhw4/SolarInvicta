@@ -40053,4 +40053,116 @@
    "iconResource": "",
    "completedIllustrationPath": ""
 },
+ {
+   "friendlyName": "Civil Logistics Network of Inner Solar System",
+   "dataName": "Project_CivilLogisticsNetworkofInnerSolarSystem",
+   "techCategory": "SpaceScience",
+   "AI_techRole": "SpaceDevelopment",
+   "AI_criticalTech": null,
+   "AI_projectRole": "ExpandNation",
+   "researchCost": 10000,
+   "prereqs": [
+      "Project_JPT",
+      "NuclearFusioninSpace",
+      "",
+      "",
+      ""
+   ],
+   "altPrereq0": "",
+   "requiredObjectiveNames": [
+      ""
+   ],
+   "altRequiredObjective0Name": "",
+   "requiredMilestone": "",
+   "effects": [
+      "Effect_InnerLogisticsNetwork",
+      "",
+      ""
+   ],
+   "oneTimeGlobally": true,
+   "repeatable": false,
+   "requiresNation": "",
+   "requiredControlPoint": [
+      "",
+      ""
+   ],
+   "factionPrereq": [
+      "",
+      "",
+      "",
+      "",
+      "",
+      ""
+   ],
+   "factionAvailableChance": 100,
+   "factionAlways": "",
+   "initialUnlockChance": 0,
+   "deltaUnlockChance": 20,
+   "maxUnlockChance": 100,
+   "orgGranted": "",
+   "resourcesGranted": [
+      {
+         "resource": "",
+         "value": null
+      }
+   ],
+   "iconResource": "",
+   "completedIllustrationPath": ""
+},
+ {
+   "friendlyName": "Civil Logistics Network of Solar System",
+   "dataName": "Project_CivilLogisticsNetworkofSolarSystem",
+   "techCategory": "SpaceScience",
+   "AI_techRole": "SpaceDevelopment",
+   "AI_criticalTech": null,
+   "AI_projectRole": "ExpandNation",
+   "researchCost": 20000,
+   "prereqs": [
+      "MissiontotheOuterPlanets",
+      "ProtonProtonFusion",
+      "Project_CivilLogisticsNetworkofInnerSolarSystem",
+      "",
+      ""
+   ],
+   "altPrereq0": "",
+   "requiredObjectiveNames": [
+      ""
+   ],
+   "altRequiredObjective0Name": "",
+   "requiredMilestone": "",
+   "effects": [
+      "Effect_LogisticsNetwork",
+      "Effect_FasterProbes",
+      ""
+   ],
+   "oneTimeGlobally": true,
+   "repeatable": false,
+   "requiresNation": "",
+   "requiredControlPoint": [
+      "",
+      ""
+   ],
+   "factionPrereq": [
+      "",
+      "",
+      "",
+      "",
+      "",
+      ""
+   ],
+   "factionAvailableChance": 100,
+   "factionAlways": "",
+   "initialUnlockChance": 0,
+   "deltaUnlockChance": 20,
+   "maxUnlockChance": 100,
+   "orgGranted": "",
+   "resourcesGranted": [
+      {
+         "resource": "",
+         "value": null
+      }
+   ],
+   "iconResource": "",
+   "completedIllustrationPath": ""
+}
 ]

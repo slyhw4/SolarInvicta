@@ -2,10 +2,11 @@
 <WorkshopItemInfo xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
   <PublishedFileId>2873517592</PublishedFileId>
   <Name>SolarInvicta</Name>
-  <Description>!!! EVERY TIME THE MOD UPDATED YOU NEED TO DO AS THE INSTRUCTIONS BELOW !!!
-每次MOD更新的时候都需要重复一遍下面的操作，游戏闪退了大概率是这个MOD的锅
-
-Enable you to establish nations on other spacebodies with some special investment buffs and develop Antarctica and build habs on Earth!</Description>
+  <Description>依旧不与cheat mod兼容，但是修复了大部分BUG，制作组特别缺人，感兴趣加1205992061
+--------------------------------------------------------------------
+增加了联合国 可以控制全世界 需要在美国中独立出来 在巨型国家科技中
+可以用飞船空投陆军，在其它星球建国(投资规则和地球略有不同)，开发南极同时在地球上建基地了
+---------------------------------------------------</Description>
   <IconFileName>SolarInvicta.png</IconFileName>
   <Tags />
 </WorkshopItemInfo>

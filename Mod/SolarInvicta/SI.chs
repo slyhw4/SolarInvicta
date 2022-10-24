@@ -64,6 +64,10 @@ TIProjectTemplate.displayName.Project_USTA=太阳系贸易联盟
 TIProjectTemplate.summary.Project_USTA=一群来自土卫六的路灯挂件
 TIProjectTemplate.displayName.Project_SCOG=外太阳系统治联盟
 TIProjectTemplate.summary.Project_SCOG=一群来自木卫三的魔怔人
+TIProjectTemplate.displayName.CivilLogisticsNetworkofInnerSolarSystem=内太阳系民用物流网络
+TIProjectTemplate.summary.CivilLogisticsNetworkofInnerSolarSystem=使用运力替代太空资源高效建造内太阳系的空间设施
+TIProjectTemplate.displayName.CivilLogisticsNetworkofSolarSystem=太阳系民用物流网络
+TIProjectTemplate.summary.CivilLogisticsNetworkofSolarSystem=使用运力替代太空资源高效建造外太阳系的空间设施
 
 TIMetaTemplate.displayName.SolarInvictaScenario=太阳系开发场景
 TIMetaTemplate.description.SolarInvictaScenario=联合国，南极洲，太空国家
@@ -773,6 +777,9 @@ TIHabSiteTemplate.displayName.EarthSite20=沃斯托克
 
 TIEffectTemplate.description.Effect_TotalHabMissionControlCost5=-我们空间站的总 <color=#FFFFFFFF><sprite name="mission_control"> 花费减少了{4}
 TIEffectTemplate.description.Effect_PublicCampaignBonus6=-我们的宣传任务永久+6
+TIEffectTemplate.description.Effect_InnerLogisticsNetwork=-核聚变动力拖船构建的物流网络将加速空间站交付.
+TIEffectTemplate.description.Effect_LogisticsNetwork=-先进的核聚变动力拖船构建的物流网络将加速空间站交付.
+TIEffectTemplate.description.Effect_FasterProbes=-更快的探测器.
 
 TIArmyTemplate.displayName.SpaceMarine=轨道空降部队
 TIArmyTemplate.displayNameWithArticle.SpaceMarine=轨道空降部队

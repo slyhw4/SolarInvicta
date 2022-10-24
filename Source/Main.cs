@@ -136,7 +136,7 @@ namespace SolarInvicta
 					}
 					else
 					{
-						bool flag3 = __instance.population_Millions < 10f;
+						bool flag3 = __instance.population_Millions < 5f;
 						if (flag3)
 						{
 							foreach (TIRegionState tiregionState2 in __instance.regions)
@@ -444,27 +444,118 @@ namespace SolarInvicta
 				}
 			}
 		}
-		//Boost & Time Patch for SI
+		//Time Cost Patch for SI
 		[HarmonyPatch(typeof(TISpaceObjectState), "GenericTransferTimeFromEarthsSurface_d")]
 		private class TISpaceObjectState_GenericTransferTimeFromEarthsSurface_d_Patch
 		{
 			private static bool Prefix(ref float __result,TIFactionState faction, TIGameState destination)
 			{
 				float num = TISpaceObjectState.GenericTransferTime_d(faction, GameStateManager.Earth(), destination);
-				if (GameStateManager.Luna().nations.Exists((TINationState nation)=>nation.ref_faction==faction&&nation.population>1f))
+				if (GameStateManager.Luna().nations.Exists((TINationState nation)=>nation.ref_faction==faction&&nation.population_Millions > 5.1f))
 					num = Mathf.Min(TISpaceObjectState.GenericTransferTime_d(faction, GameStateManager.Luna(), destination),num);
-				if (GameStateManager.Mars().nations.Exists((TINationState nation) => nation.ref_faction == faction && nation.population > 1f))
+				if (GameStateManager.Mars().nations.Exists((TINationState nation) => nation.ref_faction == faction && nation.population_Millions > 5.1f))
 					num = Mathf.Min(TISpaceObjectState.GenericTransferTime_d(faction, GameStateManager.Mars(), destination), num);
-				if (GameStateManager.Ceres().nations.Exists((TINationState nation) => nation.ref_faction == faction && nation.population > 1f))
+				if (GameStateManager.Ceres().nations.Exists((TINationState nation) => nation.ref_faction == faction && nation.population_Millions > 5.1f))
 					num = Mathf.Min(TISpaceObjectState.GenericTransferTime_d(faction, GameStateManager.Ceres(), destination), num);
-				if (GameStateManager.Mercury().nations.Exists((TINationState nation) => nation.ref_faction == faction && nation.population > 1f))
+				if (GameStateManager.Mercury().nations.Exists((TINationState nation) => nation.ref_faction == faction && nation.population_Millions > 5.1f))
 					num = Mathf.Min(TISpaceObjectState.GenericTransferTime_d(faction, GameStateManager.Mercury(), destination), num);
+				IEnumerable<TINationState> nations = from nation in GameStateManager.AllNations()where nation.ref_region != null select nation;
+				if (nations.Any((TINationState x) => (x.ref_spaceObject.GetSunOrbitingRelatedObject == GameStateManager.Jupiter() && x.ref_faction == faction && x.population_Millions > 5.1f)))
+					num = Mathf.Min(TISpaceObjectState.GenericTransferTime_d(faction, GameStateManager.Jupiter(), destination), num);
+				if (nations.Any((TINationState x) => (x.ref_spaceObject.GetSunOrbitingRelatedObject == GameStateManager.Saturn() && x.ref_faction == faction && x.population_Millions > 5.1f)))
+					num = Mathf.Min(TISpaceObjectState.GenericTransferTime_d(faction, GameStateManager.Saturn(), destination), num);
+				if (nations.Any((TINationState x) => (x.ref_spaceObject.GetSunOrbitingRelatedObject == GameStateManager.Uranus() && x.ref_faction == faction && x.population_Millions > 5.1f)))
+					num = Mathf.Min(TISpaceObjectState.GenericTransferTime_d(faction, GameStateManager.Uranus(), destination), num);
+				if (nations.Any((TINationState x) => (x.ref_spaceObject.GetSunOrbitingRelatedObject == GameStateManager.Neptune() && x.ref_faction == faction && x.population_Millions > 5.1f)))
+					num = Mathf.Min(TISpaceObjectState.GenericTransferTime_d(faction, GameStateManager.Neptune(), destination), num);
 				__result = num;
 				return false;
 			}
 		}
-	}
+		//Boost Cost Patch for SI
+		[HarmonyPatch(typeof(TISpaceObjectState), "GenericTransferBoostFromEarthSurface")]
+		private class TISpaceObjectState_GenericTransferBoostFromEarthSurface_Patch
+		{
+			private static bool Prefix(ref double __result, TIFactionState faction, TIGameState destination, float mass_tons)
+			{
+				TIOrbitState ref_orbit = destination.ref_orbit;
+				if (ref_orbit != null && ref_orbit.isEarthLEO)
+				{
+					__result = (double)(mass_tons * TemplateManager.global.spaceResourceToTons);
+				}
 
+
+				double num = SIController.GenericTransferDV_mps(GameStateManager.LEOStates()[0], destination);
+
+				if (GameStateManager.Luna().nations.Exists((TINationState nation) => nation.ref_faction == faction && nation.population_Millions > 5.1f))
+					num = Mathd.Min(SIController.GenericTransferDV_mps(GameStateManager.Luna(), destination)-1700, num);
+				if (GameStateManager.Mars().nations.Exists((TINationState nation) => nation.ref_faction == faction && nation.population_Millions > 5.1f))
+					num = Mathd.Min(SIController.GenericTransferDV_mps(GameStateManager.Mars(), destination) - 3036, num);
+				if (GameStateManager.Ceres().nations.Exists((TINationState nation) => nation.ref_faction == faction && nation.population_Millions > 5.1f))
+					num = Mathd.Min(SIController.GenericTransferDV_mps(GameStateManager.Ceres(), destination) - 367, num);
+				if (GameStateManager.Mercury().nations.Exists((TINationState nation) => nation.ref_faction == faction && nation.population_Millions > 5.1f))
+					num = Mathd.Min(SIController.GenericTransferDV_mps(GameStateManager.Mercury(), destination) - 3036, num);
+				IEnumerable<TINationState> nations = from nation in GameStateManager.AllNations() where nation.ref_region != null select nation;
+				if (nations.Any((TINationState x) => (x.ref_spaceObject.GetSunOrbitingRelatedObject == GameStateManager.Jupiter() && x.ref_faction == faction && x.population_Millions > 5.1f)))
+					num = Mathd.Min(SIController.GenericTransferDV_mps(GameStateManager.Jupiter(), destination)- 42500, num);
+				if (nations.Any((TINationState x) => (x.ref_spaceObject.GetSunOrbitingRelatedObject == GameStateManager.Saturn() && x.ref_faction == faction && x.population_Millions > 5.1f)))
+					num = Mathd.Min(SIController.GenericTransferDV_mps(GameStateManager.Saturn(), destination)- 25779, num);
+				if (nations.Any((TINationState x) => (x.ref_spaceObject.GetSunOrbitingRelatedObject == GameStateManager.Uranus() && x.ref_faction == faction && x.population_Millions > 5.1f)))
+					num = Mathd.Min(SIController.GenericTransferDV_mps(GameStateManager.Uranus(), destination)- 15200, num);
+				if (nations.Any((TINationState x) => (x.ref_spaceObject.GetSunOrbitingRelatedObject == GameStateManager.Neptune() && x.ref_faction == faction && x.population_Millions > 5.1f)))
+					num = Mathd.Min(SIController.GenericTransferDV_mps(GameStateManager.Neptune(), destination)- 16743, num);
+				
+				num *= 0.001;
+
+				if (destination.ref_habSite != null)
+				{
+					num += destination.ref_habSite.DeltaVToLandFromInterface_kps(null, 9.8, true, true);
+				}
+				else if (destination.isSpaceBodyState && destination.ref_spaceBody.habSites.Length != 0)
+				{
+					num += destination.ref_spaceBody.habSites[0].DeltaVToLandFromInterface_kps(null, 9.8, true, true);
+				}
+				float num2 = 2.11f + TIEffectsState.SumEffectsModifiers(Context.GenericTransferEV_kps, faction, 2.11f);
+				__result = (double)mass_tons * Mathd.Exp(num / (double)num2) * (double)TemplateManager.global.spaceResourceToTons;
+
+				return false;
+			}
+		}
+	}
+	//Place to store methods
+	public class SIController
+	{
+		public static double GenericTransferDV_mps(TIGameState origin0, TIGameState destination0)
+		{
+			GenericSpaceObject origin = new GenericSpaceObject();
+			origin.AssignData(origin0);
+			GenericSpaceObject destination = new GenericSpaceObject();
+			destination.AssignData(destination0);
+			TINaturalSpaceObjectState tinaturalSpaceObjectState = origin.FindCommonBarycenter(destination);
+			double relevantSemimajorAxis_m = origin.GetRelevantSemimajorAxis_m(tinaturalSpaceObjectState);
+			double relevantSemimajorAxis_m2 = destination.GetRelevantSemimajorAxis_m(tinaturalSpaceObjectState);
+			double num2;
+			double num3;
+			if (Mathd.Approximately(relevantSemimajorAxis_m, relevantSemimajorAxis_m2))
+			{
+				double num = 6.283185307179586 * Mathd.Sqrt(relevantSemimajorAxis_m * relevantSemimajorAxis_m * relevantSemimajorAxis_m / tinaturalSpaceObjectState.mu);
+				num2 = num / 100.0;
+				num3 = num / 100.0;
+			}
+			else
+			{
+				double num4 = relevantSemimajorAxis_m + relevantSemimajorAxis_m2;
+				double num5 = Mathd.Sqrt(tinaturalSpaceObjectState.mu / relevantSemimajorAxis_m);
+				double num6 = Mathd.Sqrt(2.0 * relevantSemimajorAxis_m2 / num4) - 1.0;
+				num2 = num5 * num6;
+				double num7 = Mathd.Sqrt(tinaturalSpaceObjectState.mu / relevantSemimajorAxis_m2);
+				double num8 = Mathd.Sqrt(2.0 * relevantSemimajorAxis_m / num4);
+				double num9 = 1.0 - num8;
+				num3 = num7 * num9;
+			}
+			return Mathd.Abs(num2 + num3);
+		}
+	}
 	//Space Marine class
 	public class SISpaceMarineState : TIArmyState
 	{

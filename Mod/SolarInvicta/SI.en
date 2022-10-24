@@ -64,6 +64,10 @@ TIProjectTemplate.displayName.Project_USTA=United Solar Trade Alliance
 TIProjectTemplate.summary.Project_USTA=Greedy cooperations from Titan
 TIProjectTemplate.displayName.Project_SCOG=Solar Coalition of Governance
 TIProjectTemplate.summary.Project_SCOG=A group of racist from Ganymede
+TIProjectTemplate.displayName.CivilLogisticsNetworkofInnerSolarSystem=Civil Logistics Network of Inner Solar System
+TIProjectTemplate.summary.CivilLogisticsNetworkofInnerSolarSystem=civil logistics network allows you to use Boost more efficiently
+TIProjectTemplate.displayName.CivilLogisticsNetworkofSolarSystem=Civil Logistics Network of Solar System
+TIProjectTemplate.summary.CivilLogisticsNetworkofSolarSystem=Advanced civil logistics network allows you to use Boost more efficiently
 
 TIMetaTemplate.displayName.SolarInvictaScenario=Solar Invicta Scenario
 TIMetaTemplate.description.SolarInvictaScenario=United Nations, Antarctica and space nations
@@ -772,6 +776,9 @@ TIHabSiteTemplate.displayName.EarthSite20=Vostok
 
 TIEffectTemplate.description.Effect_TotalHabMissionControlCost5=-The total cost of <color=#FFFFFFFF><sprite name="mission_control"> was reduced {4}.
 TIEffectTemplate.description.Effect_PublicCampaignBonus6=-Gain +6 to Propaganda Mission
+TIEffectTemplate.description.Effect_InnerLogisticsNetwork=-Fusion powered tugs speed up delivery of hab modules.
+TIEffectTemplate.description.Effect_LogisticsNetwork=-Advanced fusion powered tugs speed up delivery of hab modules.
+TIEffectTemplate.description.Effect_FasterProbes=-Advanced fusion powered Probes.
 
 TIArmyTemplate.displayName.SpaceMarine=SpaceMarine
 TIArmyTemplate.displayNameWithArticle.SpaceMarine=Marines drop from orbit

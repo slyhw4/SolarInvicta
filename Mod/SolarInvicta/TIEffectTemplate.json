@@ -11296,5 +11296,68 @@
       "Mission_Propaganda_Att",
       ""
    ]
+},
+ {
+   "dataName": "Effect_InnerLogisticsNetwork",
+   "instantEffect": "",
+   "operation": "Multiplicative",
+   "value": 0.4,
+   "instantRnd": null,
+   "strValue": "",
+   "effectTarget": "SourceFaction",
+   "effectSecondaryTarget": "",
+   "effectDuration": "permanent",
+   "stackable": true,
+   "duration_months": -1,
+   "initialFactionsStr": [
+      "AlienCouncil",
+      ""
+   ],
+   "contexts": [
+      "GenericModuleTransferTime",
+      ""
+   ]
+},
+ {
+   "dataName": "Effect_LogisticsNetwork",
+   "instantEffect": "",
+   "operation": "Multiplicative",
+   "value": 0.01,
+   "instantRnd": null,
+   "strValue": "",
+   "effectTarget": "SourceFaction",
+   "effectSecondaryTarget": "",
+   "effectDuration": "permanent",
+   "stackable": true,
+   "duration_months": -1,
+   "initialFactionsStr": [
+      "AlienCouncil",
+      ""
+   ],
+   "contexts": [
+      "GenericModuleTransferTime",
+      ""
+   ]
+},
+ {
+   "dataName": "Effect_FasterProbes",
+   "instantEffect": "",
+   "operation": "Multiplicative",
+   "value": 0.005,
+   "instantRnd": null,
+   "strValue": "",
+   "effectTarget": "SourceFaction",
+   "effectSecondaryTarget": "",
+   "effectDuration": "permanent",
+   "stackable": true,
+   "duration_months": -1,
+   "initialFactionsStr": [
+      "",
+      ""
+   ],
+   "contexts": [
+      "ProbeTransferTime",
+      ""
+   ]
 }
 ]
