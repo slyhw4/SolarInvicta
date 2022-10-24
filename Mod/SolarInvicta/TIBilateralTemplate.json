@@ -31257,7 +31257,7 @@
 "region1": "PearyCrater",
 "region2": "",
 "projectUnlockName": "Project_LNA",
-"capitalClaim": null,
+"capitalClaim": true,
 "initialOwner": null,
 "initialColony": null,
 "friendlyOnly": null
@@ -31271,7 +31271,7 @@
 "region1": "D'AlembertCrater",
 "region2": "",
 "projectUnlockName": "Project_LNA",
-"capitalClaim": null,
+"capitalClaim": true,
 "initialOwner": null,
 "initialColony": null,
 "friendlyOnly": null
@@ -31285,7 +31285,7 @@
 "region1": "CopernicusCrater",
 "region2": "",
 "projectUnlockName": "Project_LNA",
-"capitalClaim": null,
+"capitalClaim": true,
 "initialOwner": null,
 "initialColony": null,
 "friendlyOnly": null
@@ -31299,7 +31299,7 @@
 "region1": "MareTranquillitatis",
 "region2": "",
 "projectUnlockName": "Project_LNA",
-"capitalClaim": null,
+"capitalClaim": true,
 "initialOwner": null,
 "initialColony": null,
 "friendlyOnly": null
@@ -31313,7 +31313,7 @@
 "region1": "KorolevCrater",
 "region2": "",
 "projectUnlockName": "Project_LNA",
-"capitalClaim": null,
+"capitalClaim": true,
 "initialOwner": null,
 "initialColony": null,
 "friendlyOnly": null

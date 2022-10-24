@@ -2,11 +2,11 @@
 <WorkshopItemInfo xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
   <PublishedFileId>2873517592</PublishedFileId>
   <Name>SolarInvicta</Name>
-  <Description>依旧不与cheat mod兼容，但是修复了大部分BUG，制作组特别缺人，感兴趣加1205992061
---------------------------------------------------------------------
-增加了联合国 可以控制全世界 需要在美国中独立出来 在巨型国家科技中
-可以用飞船空投陆军，在其它星球建国(投资规则和地球略有不同)，开发南极同时在地球上建基地了
----------------------------------------------------</Description>
+  <Description>The most CTD issues are fixed and you don't need to start a new game
+We really need your help, if you want to join us, contact Slyhw4 in official discord channel or through github
+Github: https://github.com/slyhw4/SolarInvicta
+
+找我可以用中文，制作组缺人感兴趣+QQ12059</Description>
   <IconFileName>SolarInvicta.png</IconFileName>
   <Tags />
 </WorkshopItemInfo>
