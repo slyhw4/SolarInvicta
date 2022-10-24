@@ -1,7 +1,22 @@
+Most CTD issues are fixed and you don't need to start a new game. Incompatible with most cheating mod except debug
 We really need your help, if you want to join us, contact Slyhw4 in official discord channel or through github
 Github: https://github.com/slyhw4/SolarInvicta
+找我可以用中文，制作组缺人感兴趣+QQ1205992061
 
-CTD fixed, enable you to use drop pods to deploy army from orbit, establish nations on other spacebodies with some special investment buffs and develop Antarctica and build habs on Earth!
+Current Content:
+
+New Nations and Regions:
+-Antarctica with habsite
+-United Nations of Earth with claims to all regions on Earth
+-20+ Space Nations across solar system
+
+Space Marines:
+-New ship utility module Drop Pods allows you to deploy army from spaceships
+-New army type space marines with high tech level and battle power
+
+New Economy System:
+-Investment on space nations will be different compare with earth. Buffed welfare and boost, Nerfed economy.
+-The founding of space nations will allow you to use boost more efficiently.
 
 installation steps:
 1. If you have installed it before, delete all the previously installed files and cancel the subscription
@@ -13,27 +28,55 @@ installation steps:
 Terra Invicta\TerraInvicta_Data\StreamingAssets\AssetBundles\ folder and replace
 7. Start the game, select the space development scene and the SolarInvicta solar system
 
-Console Command/控制台指令
-Project_FutureofAntarctica
+Console Command:
+-New Projects:
 Project_UNSC
 Project_RUNSC
 Project_UnitedNationsofEarth
-Project_OperationMannual
+Project_OperationManual
+Project_FutureofAntarctica
+Project_SpaceMarine
+Project_MCY
+Project_UNX
+Project_TCM
+Project_LNA
+Project_UNL
+Project_ROL
+Project_MRS
+Project_AMS
+Project_SMS
+Project_CMS
+Project_UNM
+Project_USM
+Project_MCR
+Project_TIT
+Project_UNT
+Project_RTT
+Project_JPT
+Project_OPA
+Project_USF
+Project_USTA
+Project_SCOG
+Project_CivilLogisticsNetworkofInnerSolarSystem
+Project_CivilLogisticsNetworkofSolarSystem
+-New Techs
+UndergroundCities
+Domes
+-New Nations
+UNE United Nations of Earth
+ATC Antarctica
+Other nations will have dataName after their name
 
-Solar Invicta aims to provide some interesting content for your boring lategame. Some features were already tested in earlier version of the game but it needs some time to re-code it in Harmony to make it available on steam workshop. Some test version will be released on steam workshop.
+Upcoming Feature:
+MegaStructures with new models:
+-Solar power plant for interplanetary power transmission
+-Laser cannon for high speed interplanetary weapon against enemy fleets
+-Mass drive for low cost interplanetary weapon against enemy habs
+-Larger habs for economy, industry, science or shipbuilding
+-Larger colliders with high antimatter and exotics output
+-Skyhooks with huge buff on boost space resources output and transfer cost
 
-Colonization and found Nations on other planets and moons:
--Some habs will become regions with unlimited potential for development when some Projects about colonization was finished. 
--You could spend a some Money or Boosts to send a group of colonists through an event when first colony on a certain SolarBody was founded.
--In the early stage of the colonization, the knowledge investment will have a huge buff while the economy investment will experience a debuff. 
--The welfare investment will directly bring some people to your colony and this amount will decrease when population is increasing.
--Annual Boosts will depends on the escape velocity of the Solarbody and usually much higher that earth.
-
-SpaceMarines armed with unmanned combat machines to fight against aliens in other planets and assault your enemies on earth from the orbit:
--The SpaceMarines could be built as an utility module "Drop Pods" for spaceships and there are 2 mods to deploy. Fast deploy will destroy the spaceship and spawn the army directly. Slow deploy will spawn army similar to alien armies.
--The miltech level of the SpaceMarines will only depend on global miltech cap which is slightly higher than human armies.
-
-In addition, if you are really interested in this project and willing provide some help in 
+If you are really interested in this project and willing provide some help in
 -Test the mod with lots of bugs
 -Harmony coding
 -Json editing
@@ -42,11 +85,26 @@ In addition, if you are really interested in this project and willing provide so
 -Do some localization works (Most text is written in English and I can do the localization for simplified Chinese and traditional Chinese)
 Please contact me!
 
-依旧不与cheat mod兼容，但是修复了大部分BUG，制作组特别缺人，感兴趣加1205992061
---------------------------------------------------------------------
-增加了联合国 可以控制全世界 需要在美国中独立出来 在巨型国家科技中
-可以用飞船空投陆军，在其它星球建国(投资规则和地球略有不同)，开发南极同时在地球上建基地了
---------------------------------------------------------------------
+大多数 CTD 问题已修复，您无需开始新游戏。除Debug外不与大多数作弊MOD兼容
+我们真的需要你的帮助，如果你想加入我们，请在官方 discord 频道或通过 github 联系 Slyhw4
+Github：https://github.com/slyhw4/SolarInvicta
+找我可以用中文，制作组缺人+QQ1205912206
+
+当前内容：
+
+新国家和地区：
+- 南极洲与地球定居点
+- 对地球上所​​有地区拥有主权的地球联合国
+-20 多个太阳系内的太空国家
+
+星际战士：
+- 新的船舶实用模块 空投舱 允许您从轨道部署军队
+- 具有高军科和战斗力的星际战士
+
+新经济系统：
+- 与地球相比，对太空国家的投资将有所不同。增强福利和推进，削弱经济。
+- 太空国家的建立将允许您使用Boost从其他行星和卫星发射住所模块和探测器。
+
 安装步骤：
 1.如果以前也装了，把以前安装的所有文件删光，取消订阅
 2.订阅这个MOD
@@ -56,45 +114,60 @@ Please contact me!
 6.把Terra Invicta\Mods\（Enabled或Disabled中的）\SolarInvicta文件夹中的 regionoutlines 放入
 Terra Invicta\TerraInvicta_Data\StreamingAssets\AssetBundles\文件夹中并替换
 7.启动游戏，选择太空开发场景和宇宙开发太阳系
---------------------------------------------------------------------
+
 支持作者 关注
 目前大部分内容都是 @bilibili 王水-- 做的，出了BUG他背锅
 3D模型与cg @bilibili 血色星辰official
---------------------------------------------------
-控制台指令(更新以后变得特别多，所以缺人来把它们都加上)
-Project_FutureofAntarctica
+
+控制台指令:
+-新项目:
 Project_UNSC
 Project_RUNSC
 Project_UnitedNationsofEarth
-Project_OperationMannual
-开头加giveProject
-例如 giveProject Project_UNSC
+Project_OperationManual
+Project_FutureofAntarctica
+Project_SpaceMarine
+Project_MCY
+Project_UNX
+Project_TCM
+Project_LNA
+Project_UNL
+Project_ROL
+Project_MRS
+Project_AMS
+Project_SMS
+Project_CMS
+Project_UNM
+Project_USM
+Project_MCR
+Project_TIT
+Project_UNT
+Project_RTT
+Project_JPT
+Project_OPA
+Project_USF
+Project_USTA
+Project_SCOG
+Project_CivilLogisticsNetworkofInnerSolarSystem
+Project_CivilLogisticsNetworkofSolarSystem
+-新科技
+UndergroundCities
+Domes
+-新国家
+UNE 地联
+ATC 南极
+其它国家在名称后面有代码
 
---------------------------------------------------------------------------------
-这个MOD目前可以
+即将推出的功能：
+具有新模型的巨构：
+- 能无线输电的太阳能发电厂
+- 用于超视距打击敌方舰队的卫星激光炮
+- 用于超视距打击敌方定居点的质量加速器
+- 用于经济、工业、科学或造船的大型殖民卫星
+- 更高产的大型对撞机
+- 带有巨大增益的天钩系统
 
-殖民和在其他行星和卫星上建立国家：
-
--当一些殖民项目完成后，一些将成为具有无限发展潜力的地区。
-
--当某个星球上的第一个殖民地成立时，你可以花一些钱或助推金来派遣一群殖民者参加活动。
-
--在殖民化的早期阶段，知识投资将有巨大的增长，而经济投资将出现下降。
-
--福利投资会直接把一些人带到你的殖民地，随着人口的增加，这个数量会减少。
-
--每年的升力将取决于星球的逃逸速度，通常比地球高出很多。
-
-
-
-星际战士(Space Marine用战锤的翻译就是星际战士了)装备无人战斗机，与其他星球上的外星人作战，并从轨道攻击地球上的敌人：
-
--星际战士可以作为宇宙飞船的一个实用模块“空投舱”建造，快速部署会砸烂飞船。
-
--星际战士的军科只取决于全球军事技术上限，略高于人类军队用来和外星人死磕再好不过了
-
-
-制作组缺人，想加入在这个游戏的群里@王水-- 或者B站私信我
+制作组缺人，加QQ1205992061 或者B站私信我
 现在主要缺：
 编故事的，
 做汉化的(文本我是代码转换的所以英文为主，没时间汉化了)，
