@@ -37,7 +37,7 @@ namespace SolarInvicta
 		{
 			private static bool Prefix(TIMissionCondition __instance, ref string __result, TICouncilorState councilor, TIGameState possibleTarget)
 			{
-				if (councilor.ref_spaceBody == possibleTarget.ref_spaceBody)
+				if (councilor.ref_spaceBody == possibleTarget.ref_spaceBody && ((councilor.OnEarth && possibleTarget.ref_orbit==null)||(!councilor.OnEarth && possibleTarget.ref_orbit!=null)))
 				{
 					if (possibleTarget.isCouncilorState)
 					{
@@ -57,6 +57,7 @@ namespace SolarInvicta
 						if (councilor.ValidDestination(TIUtilities.ObjectToExactLocation(tigameState)))
 						{
 							__result = "_Pass";
+							return false;
 						}
 					}
 					else
@@ -76,6 +77,7 @@ namespace SolarInvicta
 						if (councilor.ValidDestination(TIUtilities.ObjectToExactLocation(possibleTarget)))
 						{
 							__result = "_Pass";
+							return false;
 						}
 					}
 				}
@@ -310,70 +312,73 @@ namespace SolarInvicta
 		[HarmonyPatch(typeof(AlienLandArmyOperation), "ExecuteOperation")]
 		private class AlienLandArmyOperation_ExecuteOperation_Patch
 		{
-			private static bool Prefix(TIGameState actorState, TIGameState target)
+			private static bool Prefix(AlienLandArmyOperation __instance, TIGameState actorState, TIGameState target)
 			{
-				TISpaceFleetState ref_fleet = actorState.ref_fleet;
-				TIRegionState ref_region = target.ref_region;
-				TIFactionState ref_faction = actorState.ref_faction;
-				TINationState ref_nation = target.ref_nation;
-				if (!ref_fleet.inCombat)
+				if (__instance.ActorCanPerformOperation(actorState, target))
 				{
-					foreach (TISpaceShipState tispaceShipState in ref_fleet.ships)
+					TISpaceFleetState ref_fleet = actorState.ref_fleet;
+					TIRegionState ref_region = target.ref_region;
+					TIFactionState ref_faction = actorState.ref_faction;
+					TINationState ref_nation = target.ref_nation;
+					if (!ref_fleet.inCombat)
 					{
-						if (tispaceShipState.landArmyEligible)
+						foreach (TISpaceShipState tispaceShipState in ref_fleet.ships)
 						{
-							tispaceShipState.DestroyShip(false, null);
-							if (ref_faction == GameStateManager.AlienFaction())
+							if (tispaceShipState.landArmyEligible)
 							{
-								ref_region.alienLanding.TriggerLanding();
-							}
-							else
-							{
-								TIArmyState tiarmyState = GameStateManager.CreateNewGameState<SISpaceMarineState>();
-								tiarmyState.createdFromTemplate = false;
-								tiarmyState.deploymentType = DeploymentType.Naval;
-								if (ref_nation.executiveFaction != null && ref_nation.executiveFaction != ref_faction && ref_nation.wars.Count != 0)
+								tispaceShipState.DestroyShip(false, null);
+								if (ref_faction == GameStateManager.AlienFaction())
 								{
-									int num = UnityEngine.Random.Range(0, ref_nation.wars.Count);
-									TINationState tinationState = ref_nation.wars[num];
-									int num2 = UnityEngine.Random.Range(0, tinationState.regions.Count);
-									tiarmyState.homeRegion = tinationState.regions[num2];
-									tiarmyState.NewArmy((ArmyType)10, 0, 1f);
-									tinationState.AddArmy(tiarmyState);
-									tiarmyState.MoveArmyToRegion(ref_region, true);
-								}
-								else if (ref_nation.executiveFaction != null && ref_nation.executiveFaction != ref_faction && ref_nation.rivals.Count != 0)
-								{
-									int num3 = UnityEngine.Random.Range(0, ref_nation.rivals.Count);
-									TINationState tinationState2 = ref_nation.rivals[num3];
-									int num4 = UnityEngine.Random.Range(0, tinationState2.regions.Count);
-									tinationState2.DeclareLimitedWar(ref_faction, ref_nation);
-									tinationState2.IsAtWarWith(ref_nation);
-									tiarmyState.homeRegion = tinationState2.regions[num4];
-									tiarmyState.NewArmy((ArmyType)10, 0, 1f);
-									tinationState2.AddArmy(tiarmyState);
-									tiarmyState.MoveArmyToRegion(ref_region, true);
+									ref_region.alienLanding.TriggerLanding();
 								}
 								else
 								{
-									tiarmyState.homeRegion = ref_region;
-									tiarmyState.NewArmy((ArmyType)10, 0, 1f);
-									ref_nation.AddArmy(tiarmyState);
-									tiarmyState.MoveArmyToRegion(ref_region, true);
+									TIArmyState tiarmyState = GameStateManager.CreateNewGameState<SISpaceMarineState>();
+									tiarmyState.createdFromTemplate = false;
+									tiarmyState.deploymentType = DeploymentType.Naval;
+									if (ref_nation.executiveFaction != null && ref_nation.executiveFaction != ref_faction && ref_nation.wars.Count != 0)
+									{
+										int num = UnityEngine.Random.Range(0, ref_nation.wars.Count);
+										TINationState tinationState = ref_nation.wars[num];
+										int num2 = UnityEngine.Random.Range(0, tinationState.regions.Count);
+										tiarmyState.homeRegion = tinationState.regions[num2];
+										tiarmyState.NewArmy((ArmyType)10, 0, 1f);
+										tinationState.AddArmy(tiarmyState);
+										tiarmyState.MoveArmyToRegion(ref_region, true);
+									}
+									else if (ref_nation.executiveFaction != null && ref_nation.executiveFaction != ref_faction && ref_nation.rivals.Count != 0)
+									{
+										int num3 = UnityEngine.Random.Range(0, ref_nation.rivals.Count);
+										TINationState tinationState2 = ref_nation.rivals[num3];
+										int num4 = UnityEngine.Random.Range(0, tinationState2.regions.Count);
+										tinationState2.DeclareLimitedWar(ref_faction, ref_nation);
+										tinationState2.IsAtWarWith(ref_nation);
+										tiarmyState.homeRegion = tinationState2.regions[num4];
+										tiarmyState.NewArmy((ArmyType)10, 0, 1f);
+										tinationState2.AddArmy(tiarmyState);
+										tiarmyState.MoveArmyToRegion(ref_region, true);
+									}
+									else
+									{
+										tiarmyState.homeRegion = ref_region;
+										tiarmyState.NewArmy((ArmyType)10, 0, 1f);
+										ref_nation.AddArmy(tiarmyState);
+										tiarmyState.MoveArmyToRegion(ref_region, true);
+									}
+									TINotificationQueueState.LogNewArmyBuilt(tiarmyState);
+									tiarmyState.homeNation.SetDataDirty();
+									TIGlobalValuesState.GlobalValues.ModifyMarketValuesForArmyPriority();
+									tiarmyState.SetGameStateCreated();
+									tiarmyState.faction = ref_faction;
+									TINotificationQueueState.LogArmyAssignedToFaction(tiarmyState, ref_faction);
 								}
-								TINotificationQueueState.LogNewArmyBuilt(tiarmyState);
-								tiarmyState.homeNation.SetDataDirty();
-								TIGlobalValuesState.GlobalValues.ModifyMarketValuesForArmyPriority();
-								tiarmyState.SetGameStateCreated();
-								tiarmyState.faction = ref_faction;
-								TINotificationQueueState.LogArmyAssignedToFaction(tiarmyState, ref_faction);
+								foreach (TICouncilorState ticouncilorState in tispaceShipState.councilorPassengers)
+								{
+									ticouncilorState.SetLocation(ref_region);
+								}
+								TIEffectsState.AddEffect(TemplateManager.Find<TIEffectTemplate>("Effect_ManyAliensOnEarth", false), GameStateManager.AlienFaction(), null, null);
+								break;
 							}
-							foreach (TICouncilorState ticouncilorState in tispaceShipState.councilorPassengers)
-							{
-								ticouncilorState.SetLocation(ref_region);
-							}
-							TIEffectsState.AddEffect(TemplateManager.Find<TIEffectTemplate>("Effect_ManyAliensOnEarth", false), GameStateManager.AlienFaction(), null, null);
-							break;
 						}
 					}
 				}
@@ -472,7 +477,7 @@ namespace SolarInvicta
 				return false;
 			}
 		}
-		//Boost Cost Patch for SI
+		//Boost Cost Patch for SI 修正了推进的消耗
 		[HarmonyPatch(typeof(TISpaceObjectState), "GenericTransferBoostFromEarthSurface")]
 		private class TISpaceObjectState_GenericTransferBoostFromEarthSurface_Patch
 		{
@@ -518,6 +523,163 @@ namespace SolarInvicta
 				float num2 = 2.11f + TIEffectsState.SumEffectsModifiers(Context.GenericTransferEV_kps, faction, 2.11f);
 				__result = (double)mass_tons * Mathd.Exp(num / (double)num2) * (double)TemplateManager.global.spaceResourceToTons;
 
+				return false;
+			}
+		}
+		//Patch MoveToTarget for councilor teleporting bugs 给干员传送打了个补丁
+		[HarmonyPatch(typeof(TIMissionState), "GetInitialMissionLocation")]
+		private class TIMissionState_GetInitialMissionLocation_Patch
+		{
+			private static bool Prefix(TIMissionState __instance, ref TIGameState __result)
+			{
+				if (__instance.missionTemplate.movementRule == MissionMovementRule.MoveToTarget)
+				{
+					__result = __instance.targetLocation;
+				}
+				else if (__instance.missionTemplate.movementRule == MissionMovementRule.MoveToLaunchSite)
+				{
+					if (__instance.councilor.OnEarth)
+					{
+						if (__instance.councilor.ref_spaceBody == GameStateManager.Earth())
+						{
+							TIRegionSpaceFacilityState tiregionSpaceFacilityState = __instance.councilor.faction.SelectRandomLaunchSite();
+							__result = ((tiregionSpaceFacilityState != null) ? tiregionSpaceFacilityState.ref_region : null) ?? GameStateManager.FindByTemplate<TIRegionState>("Astana", false);
+							return false;
+						}
+						else 
+						{
+							__result = __instance.councilor.ref_region;
+							return false;
+						}
+					}
+					__result = __instance.councilor.location;
+				}
+				else 
+				{
+					__result = __instance.councilor.location;
+				}
+				return false;
+			}
+		}
+		//Patch for orbit mission 给干员瞎入轨打个补丁照搬并跳过了原方法
+		[HarmonyPatch(typeof(TIMissionCondition_CanLaunchToOrbit), "CanTarget")]
+		private class TIMissionCondition_CanLaunchToOrbit_CanTarget_Patch
+		{
+			private static bool Prefix(TIMissionCondition_CanLaunchToOrbit __instance, ref string __result, TICouncilorState councilor, TIGameState possibleTarget)
+			{
+				if (((councilor.isHuman && councilor.OnEarth) || councilor.AtABase)&& councilor.ref_spaceBody == possibleTarget.ref_spaceBody)
+				{
+					__result = "_Pass";
+					return false;
+				}
+				else 
+				{
+					__result = __instance.GetType().Name;
+				}
+				return false;
+			}
+		}
+		//Same reason as above 和上面一样懒得用PostFix了照搬并跳过了原方法
+		[HarmonyPatch(typeof(TIMissionCondition_AllowedOrbitTarget), "CanTarget")]
+		private class TIMissionCondition_AllowedOrbitTarget_CanTarget_Patch
+		{
+			private static bool Prefix(TIMissionCondition_CanLaunchToOrbit __instance, ref string __result, TICouncilorState councilor, TIGameState possibleTarget)
+			{
+				if (councilor.ValidDestination(TIUtilities.ObjectToExactLocation(possibleTarget)))
+				{
+					if (councilor.OnEarth)
+					{
+						TIOrbitState ref_orbit = possibleTarget.ref_orbit;
+						if (ref_orbit != null)
+						{
+							__result = "_Pass";
+							return false;
+						}
+						TIOrbitState ref_orbit2 = possibleTarget.ref_orbit;
+						bool? flag;
+						if (ref_orbit2 == null)
+						{
+							flag = null;
+						}
+						else
+						{
+							TINaturalSpaceObjectState barycenter = ref_orbit2.barycenter.barycenter;
+							flag = ((barycenter != null) ? new bool?(barycenter.isEarth) : null);
+						}
+						bool? flag2 = flag;
+						if (flag2.GetValueOrDefault())
+						{
+							__result = "_Pass";
+							return false;
+						}
+					}
+					else if (councilor.AtABase)
+					{
+						TIOrbitState ref_orbit3 = possibleTarget.ref_orbit;
+						TIGameState tigameState = ((ref_orbit3 != null) ? ref_orbit3.barycenter : null);
+						TIHabState ref_hab = councilor.location.ref_hab;
+						TIGameState tigameState2;
+						if (ref_hab == null)
+						{
+							tigameState2 = null;
+						}
+						else
+						{
+							TIHabSiteState ref_habSite = ref_hab.ref_habSite;
+							tigameState2 = ((ref_habSite != null) ? ref_habSite.parentBody : null);
+						}
+						if (tigameState == tigameState2)
+						{
+							TIOrbitState ref_orbit4 = possibleTarget.ref_orbit;
+							if (ref_orbit4 != null && ref_orbit4.interfaceOrbit)
+							{
+								__result = "_Pass";
+								return false;
+							}
+						}
+					}
+				}
+				__result = __instance.GetType().Name;
+				return false;
+			}
+		}
+		//Patch for alien targets 下面两个给外星人瞎送陆军打了个补丁
+		[HarmonyPatch(typeof(AlienCrashdownOperation), "GetPossibleTargets")]
+		private class AlienCrashdownOperation_GetPossibleTargets_Patch
+		{
+			private static bool Prefix(ref List<TIGameState> __result, TIGameState actorState)
+			{
+				List<TIGameState> list = new List<TIGameState>();
+				List<TIFactionIdeologyTemplate> list2 = (from x in GameStateManager.AllFactions()
+														 where x.ideology.proAlien
+														 select x into y
+														 select y.ideology).ToList<TIFactionIdeologyTemplate>();
+				foreach (TIRegionState tiregionState in GameStateManager.AllRegions())
+				{
+					TIFactionState executiveFaction = tiregionState.nation.executiveFaction;
+					if ((!tiregionState.antiSpaceDefenses || (!(executiveFaction == null) && list2.Contains(executiveFaction.ideology)))&&actorState.ref_spaceBody==tiregionState.ref_spaceBody)
+					{
+						list.Add(tiregionState);
+					}
+				}
+				__result  = list;
+				return false;
+			}
+		}
+		[HarmonyPatch(typeof(AlienLandArmyOperation), "GetPossibleTargets")]
+		private class AlienLandArmyOperation_GetPossibleTargets_Patch
+		{
+			private static bool Prefix(ref List<TIGameState> __result, TIGameState actorState)
+			{
+				List<TIGameState> list = new List<TIGameState>();
+				foreach (TIRegionState tiregionState in GameStateManager.AllRegions())
+				{
+					if ((tiregionState.nation.alienNation || !tiregionState.antiSpaceDefenses || (tiregionState.nation.executiveFaction != null && tiregionState.nation.allies.Contains(GameStateManager.AlienNation()) && tiregionState.nation.executiveFaction.IsAlienProxy))&& actorState.ref_spaceBody == tiregionState.ref_spaceBody)
+					{
+						list.Add(tiregionState);
+					}
+				}
+				__result = list;
 				return false;
 			}
 		}

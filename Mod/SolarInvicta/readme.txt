@@ -1,4 +1,4 @@
-Most CTD issues are fixed and you don't need to start a new game. Incompatible with most cheating mod except debug
+Most CTD issues are fixed and you don't need to start a new game. Now compatible with most cheating mod.
 We really need your help, if you want to join us, contact Slyhw4 in official discord channel or through github
 Github: https://github.com/slyhw4/SolarInvicta
 找我可以用中文，制作组缺人感兴趣+QQ1205992061
@@ -85,7 +85,7 @@ If you are really interested in this project and willing provide some help in
 -Do some localization works (Most text is written in English and I can do the localization for simplified Chinese and traditional Chinese)
 Please contact me!
 
-大多数 CTD 问题已修复，您无需开始新游戏。除Debug外不与大多数作弊MOD兼容
+大多数 CTD 问题已修复，您无需开始新游戏。现在兼容大部分作弊MOD了
 我们真的需要你的帮助，如果你想加入我们，请在官方 discord 频道或通过 github 联系 Slyhw4
 Github：https://github.com/slyhw4/SolarInvicta
 找我可以用中文，制作组缺人+QQ1205912206
