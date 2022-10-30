@@ -14,3 +14,5 @@ C:\Users\slyhw\Desktop\SolarInvicta\SolarInvicta\Source\obj\Debug\SolarInvicta.c
 C:\Users\slyhw\Desktop\SolarInvicta\SolarInvicta\Source\obj\Debug\SolarInvicta.csproj.CoreCompileInputs.cache
 C:\Users\slyhw\Desktop\SolarInvicta\SolarInvicta\Source\obj\Debug\SolarInvicta.dll
 C:\Users\slyhw\Desktop\SolarInvicta\SolarInvicta\Source\obj\Debug\SolarInvicta.pdb
+D:\TIEA\Terra Invicta\Mods\Enabled\2873517592\SolarInvicta.dll
+D:\TIEA\Terra Invicta\Mods\Enabled\2873517592\SolarInvicta.pdb

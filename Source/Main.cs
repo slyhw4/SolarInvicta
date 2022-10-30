@@ -683,8 +683,264 @@ namespace SolarInvicta
 				return false;
 			}
 		}
+		[HarmonyPatch(typeof(TIHabModuleState), "ModulePower")]
+		private class TIHabModuleState_ModulePower_Patch
+		{
+			private static void Postfix(TIHabModuleState __instance, ref int __result)
+			{
+
+				if (__instance.templateName == SIConfig.powerReceiver)
+				{
+					List<TIHabModuleState> transmitterInRange = new List<TIHabModuleState>();
+					float transmissionFactor = 0;
+					foreach (TIHabModuleState moduleState in __instance.ref_faction.habModules)
+					{
+						if (__instance.ref_faction.habModules!= null && moduleState.templateName== SIConfig.powerTransmitter && Vector3d.Distance(moduleState.ref_spaceBody.GetGlobalPosition(), __instance.ref_spaceBody.GetGlobalPosition()) < SIConfig.powerTransmittingRange && moduleState.powered)
+						{
+							transmitterInRange.Add(moduleState);
+						}
+					}
+
+					foreach (TIHabModuleState moduleState in transmitterInRange) 
+					{
+						int transmissionTarget = 0;
+						foreach (TIHabModuleState moduleState1 in __instance.ref_hab.ref_faction.habModules)
+						{
+							if (moduleState1.templateName == SIConfig.powerReceiver && Vector3d.Distance(moduleState.ref_spaceBody.GetGlobalPosition(), moduleState1.ref_spaceBody.GetGlobalPosition()) < SIConfig.powerTransmittingRange && moduleState1.powered)
+							{
+								transmissionTarget++;
+							}
+						}
+						transmissionFactor += 1 / transmissionTarget;
+					}
+					__result = (int)(transmissionFactor * __instance.moduleTemplate.power)+1;
+				}
+			}
+		}
+		//Patch if needed
+		/*[HarmonyPatch(typeof(TIHabModuleTemplate), "ProspectivePower", new Type[] { typeof(TISpaceBodyState), typeof(TIFactionState)})]
+		private class TIHabModuleTemplate_ProspectivePower_Patch0
+		{
+			private static void Postfix(TIHabModuleTemplate __instance, TIFactionState faction, TISpaceBodyState spaceBody,ref int __result)
+			{
+				if (__instance.dataName == SIConfig.powerReceiver)
+				{
+					float range = 1.8e11f;
+					TISpaceBodyState[] spaceBodyStates = GameStateManager.AllSpaceBodies();
+					List<TISpaceBodyState> spaceBodyInRange = new List<TISpaceBodyState>();
+					int powerModules = 0;
+					foreach (TISpaceBodyState spaceBodyState in spaceBodyStates)
+					{
+						if (Vector3d.Distance(spaceBodyState.ref_spaceBody.GetGlobalPosition(), spaceBody.GetGlobalPosition()) < range)
+						{
+							foreach (TIHabState habState in spaceBodyState.habs)
+							{
+								foreach (TIHabModuleState moduleState in habState.AllModules())
+								{
+									if (moduleState.moduleTemplate.dataName == SIConfig.powerTransmitter && moduleState.ref_faction == faction)
+									{
+										powerModules++;
+									}
+								}
+							}
+						}
+					}
+					__result = powerModules * __instance.power;
+				}
+			}
+		}
+		[HarmonyPatch(typeof(TIHabModuleTemplate), "ProspectivePower", new Type[] { typeof(TIHabSiteState), typeof(TIFactionState)})]
+		private class TIHabModuleTemplate_ProspectivePower_Patch1
+		{
+			private static void Postfix(TIHabModuleTemplate __instance, TIFactionState faction, TIHabSiteState site, ref int __result)
+			{
+				if (__instance.dataName == SIConfig.powerReceiver)
+				{
+					TISpaceBodyState[] spaceBodyStates = GameStateManager.AllSpaceBodies();
+					List<TISpaceBodyState> spaceBodyInRange = new List<TISpaceBodyState>();
+					int powerModules = 0;
+					foreach (TISpaceBodyState spaceBody in spaceBodyStates)
+					{
+						if (Vector3d.Distance(spaceBody.ref_spaceBody.GetGlobalPosition(), site.ref_spaceBody.GetGlobalPosition()) < SIConfig.powerTransmittingRange)
+						{
+							foreach (TIHabState habState in spaceBody.habs)
+							{
+								foreach (TIHabModuleState moduleState in habState.AllModules())
+								{
+									if (moduleState.moduleTemplate.dataName == SIConfig.powerTransmitter && moduleState.ref_faction == faction && moduleState.powered)
+									{
+										powerModules++;
+									}
+								}
+							}
+						}
+					}
+					__result = powerModules * __instance.power;
+				}
+			}
+		}*/
+		[HarmonyPatch(typeof(TIHabModuleTemplate), "ProspectivePower", new Type[] { typeof(TIHabState) })]
+		private class TIHabModuleTemplate_ProspectivePower_Patch3
+		{
+			private static void Postfix(TIHabModuleTemplate __instance,ref int __result, TIHabState hab)
+			{
+				if (__instance.dataName == SIConfig.powerReceiver)
+				{
+					List<TIHabModuleState> transmitterInRange = new List<TIHabModuleState>();
+					float transmissionFactor = 0;
+					foreach (TIHabModuleState moduleState in hab.ref_faction.habModules)
+					{
+						if (hab.ref_faction.habModules != null && moduleState.templateName == SIConfig.powerTransmitter && Vector3d.Distance(moduleState.ref_spaceBody.GetGlobalPosition(), hab.ref_spaceBody.GetGlobalPosition()) < SIConfig.powerTransmittingRange && moduleState.powered)
+						{
+							transmitterInRange.Add(moduleState);
+						}
+					}
+
+					foreach (TIHabModuleState moduleState in transmitterInRange)
+					{
+						int transmissionTarget = 0;
+						foreach (TIHabModuleState moduleState1 in hab.ref_faction.habModules)
+						{
+							if (moduleState1.templateName == SIConfig.powerReceiver && Vector3d.Distance(moduleState.ref_spaceBody.GetGlobalPosition(), moduleState1.ref_spaceBody.GetGlobalPosition()) < SIConfig.powerTransmittingRange && moduleState1.powered)
+							{
+								transmissionTarget++;
+							}
+						}
+						transmissionFactor += 1 / transmissionTarget;
+					}
+					__result = (int)(transmissionFactor * __instance.power) + 1;
+				}
+			}
+		}
+		//Enable Interplanetary Nations
+		[HarmonyPatch(typeof(RegionController), "ChangeRegionOwner")]
+		private class RegionController_ChangeRegionOwner_Patch
+		{
+			private static bool Prefix(RegionController __instance, RegionControlChanged e, ref NationController ___nationVisualizer)
+			{
+
+				TINationState oldNation = e.oldNation;
+				TINationState newNation = e.newNation;
+				NationController nation2 = __instance.mapVisualizer.GetNation(newNation.templateName);
+				NationController nation = __instance.mapVisualizer.GetNation(oldNation.templateName);
+
+				if (oldNation.solarBody == newNation.solarBody)
+				{
+					nation.regionVisualizers.Remove(__instance);
+					nation2.regionVisualizers.Add(__instance);
+					___nationVisualizer = nation2;
+					__instance.transform.SetParent(nation2.transform);
+				}
+
+					__instance.SetBaselineTexture(__instance.region.ref_nation.template.color);
+
+				return false;
+			}
+		}
+		//Color change
+		[HarmonyPatch(typeof(RegionController), "MouseOver")]
+		private class RegionController_MouseOver_Patch
+		{
+			private static bool Prefix(RegionController __instance, ref bool ___mouseOver)
+			{
+				if (!___mouseOver)
+				{
+					___mouseOver = true;
+					__instance.SetHighlightTexture(__instance.region.ref_nation.template.color);
+					if (GeneralControlsController.UITargetingMode != null)
+					{
+						if (GeneralControlsController.UITargetingMode.GetPossibleTargets.Contains(__instance.region.nation.ref_gameState) || GeneralControlsController.UITargetingMode.GetPossibleTargets.Contains(__instance.region.nation.ref_gameState.ref_region))
+						{
+							TIInputManager.SetCursor(TIInputManager.targetCursorValid, true);
+							return false;
+						}
+						TIInputManager.SetCursor(TIInputManager.targetCursor, true);
+					}
+				}
+				return false;
+			}
+		}
+		[HarmonyPatch(typeof(RegionController), "RestoreRegionTexture")]
+		private class RegionController_RestoreRegionTexture_Patch
+		{
+			private static bool Prefix(RegionController __instance, ref bool ___mouseOver)
+			{
+				___mouseOver = false;
+				if (!(GeneralControlsController.UIOtherSelectedState == __instance.region) && !(GeneralControlsController.UIOtherSelectedState == __instance.region.nation))
+				{
+					TIGameState uiotherSelectedState = GeneralControlsController.UIOtherSelectedState;
+					if (uiotherSelectedState == null || !uiotherSelectedState.isRegionState || !(GeneralControlsController.UIOtherSelectedState.ref_nation == __instance.region.nation))
+					{
+						if (GeneralControlsController.UIPlayerInTargetingMode && (GeneralControlsController.CurrentValidTarget(__instance.region) || GeneralControlsController.CurrentValidTarget(__instance.region.nation)))
+						{
+							__instance.SetAllowedTargetTexture(__instance.region.ref_nation.template.color);
+							return false;
+						}
+						if (__instance.region.IsOccupied())
+						{
+							__instance.SetOccupiedTexture(__instance.region.ref_nation.template.color);
+							return false;
+						}
+						__instance.SetBaselineTexture(__instance.region.ref_nation.template.color);
+						return false;
+					}
+				}
+				__instance.SetSelectedTexture(__instance.region.ref_nation.template.color);
+				return false;
+			}
+		}
+		[HarmonyPatch(typeof(TINationState), "TransferRegionsControlTo")]
+		private class TINationState_TransferRegionsControlTo_Patch
+		{
+			private static void Prefix(ref List<TIRegionState> regions)
+			{
+				List<TIRegionState> fixedRegions = new List<TIRegionState>();
+				foreach (TIRegionState tiregionState in regions)
+				{
+					if (tiregionState.population==0)
+					{
+						tiregionState.populationInMillions=1e-6f;	
+					}
+					fixedRegions.Add(tiregionState);
+				}
+				regions = fixedRegions;
+			}
+		}
+		[HarmonyPatch(typeof(TINationState), nameof(TINationState.AbsorbNation))]
+		public class AbsorbNationMiltechCalculationPatch
+		{
+			static void Prefix(out float __state, TINationState __instance, TIFactionState actingFaction, TINationState joiningNationState)
+			{
+				__state = 0f;
+
+					float joiningNationStatePopulationAndArmiesMultiplier;
+					float thisNationStatePopulationAndArmiesMultiplier;
+
+						joiningNationStatePopulationAndArmiesMultiplier = joiningNationState.population_Millions + (joiningNationState.numArmies * 0.5f * joiningNationState.population_Millions) + (joiningNationState.numNavies * 0.5f * joiningNationState.population_Millions);
+						thisNationStatePopulationAndArmiesMultiplier = __instance.population_Millions + (__instance.numArmies * 0.5f * __instance.population_Millions) + (__instance.numNavies * 0.5f * __instance.population_Millions);
+
+					__state = (float)((joiningNationState.militaryTechLevel * joiningNationStatePopulationAndArmiesMultiplier + __instance.militaryTechLevel * thisNationStatePopulationAndArmiesMultiplier) / (thisNationStatePopulationAndArmiesMultiplier + joiningNationStatePopulationAndArmiesMultiplier));
+
+			}
+
+			static void Postfix(float __state, TINationState __instance)
+			{
+
+					var nationState = Traverse.Create(__instance);
+					FileLog.Log($"[PopBasedMiltechCalculation] Game set {__instance.militaryTechLevel}, replaced with {__state}");
+					nationState.Property("militaryTechLevel").SetValue(__state);
+					__instance.SetDataDirty();
+
+			}
+		}
 	}
 	//Place to store methods
+	public class SIConfig 
+	{
+		public static string powerTransmitter = "PlatformCore";
+		public static string powerReceiver = "SolarCollector";
+		public static float powerTransmittingRange = 1.8e11f;
+	}
 	public class SIController
 	{
 		public static double GenericTransferDV_mps(TIGameState origin0, TIGameState destination0)
@@ -718,6 +974,173 @@ namespace SolarInvicta
 			return Mathd.Abs(num2 + num3);
 		}
 	}
+	public class TIMissionCondition_FireSatelliteLaserBattery : TIMissionCondition
+	{
+		// Token: 0x06000569 RID: 1385 RVA: 0x00016D0C File Offset: 0x00014F0C
+		public override string CanTarget(TICouncilorState councilor, TIGameState possibleTarget)
+		{
+			if (councilor.InAHab && councilor.ref_hab.ActiveModules().Any((TIHabModuleState x) => x.moduleTemplate.dataName == "PlatformCore"))//Check by dataName
+			{
+				return "_Pass";
+			}
+			return base.GetType().Name;
+		}
+	}
+	public class TIMissionCondition_SatelliteLaserBatteryTarget : TIMissionCondition
+	{
+		// Token: 0x06000569 RID: 1385 RVA: 0x00016D0C File Offset: 0x00014F0C
+		public override string CanTarget(TICouncilorState councilor, TIGameState possibleTarget)
+		{
+			float range = 3e9f;
+			if (possibleTarget.isHabState) 
+			{
+				TIHabState habState = (TIHabState)possibleTarget;
+				if (habState != councilor.ref_hab && Vector3d.Distance(councilor.ref_spaceBody.GetGlobalPosition(), habState.ref_spaceBody.GetGlobalPosition()) < range) 
+				{
+					return "_Pass";
+				}
+			}
+			if (possibleTarget.isSpaceShipState) 
+			{
+				TISpaceShipState spaceShipState = (TISpaceShipState)possibleTarget;
+				if (spaceShipState.ref_spaceBody!=null && Vector3d.Distance(councilor.ref_spaceBody.GetGlobalPosition(), spaceShipState.ref_spaceBody.GetGlobalPosition()) < range) 
+				{
+					return "_Pass";
+				}
+			}
+			return base.GetType().Name;
+		}
+	}
+
+	public class TIMissionEffect_SatelliteLaserBatteryHit : TIMissionEffect
+	{
+		public override bool HasDelayedEffect()
+		{
+			return true;
+		}
+		public override string ApplyEffect(TIMissionState mission, TIGameState target, TIMissionOutcome outcome = TIMissionOutcome.Success)
+		{
+			SIController sIController = new SIController();
+			if (outcome == TIMissionOutcome.Success) 
+			{
+				if (target.isHabState)
+				{
+					TIHabState tIHabState = (TIHabState)target;
+					TIHabModuleState module = tIHabState.AllModules()[UnityEngine.Random.Range(0, tIHabState.AllModules().Count)];
+					module.DestroyModule();
+				}
+				if (target.isSpaceShipState)
+				{
+					TISpaceShipState tispaceShipState = (TISpaceShipState)target;
+					ModuleDataEntry moduleDataEntry0 = tispaceShipState.radiatorModule;
+					tispaceShipState.ApplyDamageToPart(moduleDataEntry0, moduleDataEntry0.moduleTemplate.hitPoints);
+					ModuleDataEntry moduleDataEntry1 = tispaceShipState.driveModule;
+					tispaceShipState.ApplyDamageToPart(moduleDataEntry1, 0.5f * moduleDataEntry1.moduleTemplate.hitPoints);
+				}
+			}
+			return string.Empty;
+		}
+		public override void ApplyDelayedEffect(TIMissionState mission, TIGameState target, TIMissionOutcome outcome = TIMissionOutcome.Success, string dataName = "")
+		{
+			if (outcome == TIMissionOutcome.CriticalSuccess)
+			{
+				TIFactionState faction = mission.councilor.faction;
+				if (target.isHabState)
+				{
+					TIHabState hab = (TIHabState)target;
+					hab.DestroyHab(faction, 0.1f);
+					hab.ref_councilor.KillCouncilor();
+				}
+				if (target.isSpaceShipState)
+				{
+					TISpaceShipState tispaceShipState = (TISpaceShipState)target;
+					tispaceShipState.DestroyShip(true,faction);
+				}
+			}
+		}
+	}
+	public class TIMissionCondition_FireSatelliteMassDrive : TIMissionCondition
+	{
+		// Token: 0x06000569 RID: 1385 RVA: 0x00016D0C File Offset: 0x00014F0C
+		public override string CanTarget(TICouncilorState councilor, TIGameState possibleTarget)
+		{
+			if (councilor.InAHab && councilor.ref_hab.ActiveModules().Any((TIHabModuleState x) => x.moduleTemplate.dataName == "PlatformCore"))//Check by dataName
+			{
+				return "_Pass";
+			}
+			return base.GetType().Name;
+		}
+	}
+	public class TIMissionCondition_SatelliteMassDriveTarget : TIMissionCondition
+	{
+		// Token: 0x06000569 RID: 1385 RVA: 0x00016D0C File Offset: 0x00014F0C
+		public override string CanTarget(TICouncilorState councilor, TIGameState possibleTarget)
+		{
+			float range = 8e11f;
+			if (possibleTarget.isHabState)
+			{
+				TIHabState habState = (TIHabState)possibleTarget;
+				if (habState != councilor.ref_hab && Vector3d.Distance(councilor.ref_spaceBody.GetGlobalPosition(), habState.ref_spaceBody.GetGlobalPosition()) < range)
+				{
+					return "_Pass";
+				}
+			}
+			if (possibleTarget.isSpaceShipState)
+			{
+				TISpaceShipState spaceShipState = (TISpaceShipState)possibleTarget;
+				if (spaceShipState.ref_spaceBody != null && Vector3d.Distance(councilor.ref_spaceBody.GetGlobalPosition(), spaceShipState.ref_spaceBody.GetGlobalPosition()) < range)
+				{
+					return "_Pass";
+				}
+			}
+			return base.GetType().Name;
+		}
+	}
+	public class TIMissionEffect_SatelliteMassDriveHit : TIMissionEffect
+	{
+		public override bool HasDelayedEffect()
+		{
+			return true;
+		}
+		public override string ApplyEffect(TIMissionState mission, TIGameState target, TIMissionOutcome outcome = TIMissionOutcome.Success)
+		{
+			float deltaV_kps = 50f;
+			SIController sIController = new SIController();
+			if (outcome == TIMissionOutcome.Success)
+			{
+				if (target.isHabState)
+				{
+					TIHabState tIHabState = (TIHabState)target;
+					TIHabModuleState module = tIHabState.AllModules()[UnityEngine.Random.Range(0, tIHabState.AllModules().Count)];
+					module.DestroyModule();
+				}
+				if (target.isSpaceShipState)
+				{
+					TISpaceShipState tispaceShipState = (TISpaceShipState)target;
+					tispaceShipState.ConsumeDeltaV(deltaV_kps);
+				}
+			}
+			return string.Empty;
+		}
+		public override void ApplyDelayedEffect(TIMissionState mission, TIGameState target, TIMissionOutcome outcome = TIMissionOutcome.Success, string dataName = "")
+		{
+			if (outcome == TIMissionOutcome.CriticalSuccess)
+			{
+				TIFactionState faction = mission.councilor.faction;
+				if (target.isHabState)
+				{
+					TIHabState hab = (TIHabState)target;
+					hab.DestroyHab(faction, 0.1f);
+					hab.ref_councilor.KillCouncilor();
+				}
+				if (target.isSpaceShipState)
+				{
+					TISpaceShipState tispaceShipState = (TISpaceShipState)target;
+					tispaceShipState.DestroyShip(true, faction);
+				}
+			}
+		}
+	}
 	//Space Marine class
 	public class SISpaceMarineState : TIArmyState
 	{
@@ -733,7 +1156,7 @@ namespace SolarInvicta
 
 		public override string GetModelResource()
 		{
-			return "3dearthmodels/tech_lvl_7_undefined";
+			return "simodelpack/drone";
 		}
 
 		public override Sprite GetTransportIcon()
